@@ -31,7 +31,17 @@ def read_sales(filename):
             "producto2": [200.0],
         }
     """
-    pass  # Reemplazar con tu implementación
+    with open(filename, "r") as archivo:
+        sales = {}
+        texto = archivo.read()
+        record = texto.split(";")
+        for line in record:
+            if line:
+                product, valor = line.split(":")
+                if product not in sales:
+                    sales[product] = []
+                sales[product].append(float(valor))
+    return sales
 
 
 def process_sales(data):
@@ -53,4 +63,12 @@ def process_sales(data):
         process_sales({"producto1": [100.0, 150.0]})
         # imprime: "producto1: ventas totales $250.00, promedio $125.00"
     """
+    for product, sales in data.items():
+        total = sum(sales)
+        average = total / len(sales)
+
+        print(
+            f"{product}: ventas totales ${total:.2f}, "
+            f"promedio ${average:.2f}"
+        )
     pass  # Reemplazar con tu implementación

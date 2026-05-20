@@ -34,4 +34,27 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
+    stats = {}
+
+    with open(filename, "r", encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+
+            if not line:
+                continue
+
+            student, grades_text = line.split(":")
+
+            grades = []
+
+            for grade in grades_text.split(","):
+                grades.append(float(grade))
+
+            average = sum(grades) / len(grades)
+            maximum = max(grades)
+            minimum = min(grades)
+
+            stats[student] = (average, maximum, minimum)
+
+    return stats
     pass  # Reemplazar con tu implementación
